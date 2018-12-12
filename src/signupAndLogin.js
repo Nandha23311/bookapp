@@ -11,7 +11,7 @@ class SignUpAndLogin extends Component {
         userName: "",
         loginPassword: "",
         password: "",
-        fullName: "",
+        fullname: "",
         mobileNumber: "",
         goto:false
       }
@@ -24,28 +24,37 @@ class SignUpAndLogin extends Component {
     axios.post('http://localhost:1996/getCren', reqBody).then( (success) => {
       if(success){
         console.log('success')
+        this.updateGoto(true)
       }
     })
     .catch( (error) => {
       console.log('error');
     })
 
-    this.updateGoto(true)
+    
   }
   handleSignup(){
     let reqBody = {
       userName: this.state.userName,
       password: this.state.password,
-      fullName: this.state.fullName,
+      fullname: this.state.fullName,
       mobileNumber: this.state.mobileNumber
     }
-    this.updateGoto(true)
+    axios.post('http://localhost:1996/signup', reqBody).then( (success) => {
+      if(success){
+        console.log('success')
+        this.updateGoto(true)
+      }
+    })
+    .catch( (error) => {
+      console.log('error');
+    })
   }
   updateGoto(value){
     this.setState({goto: value})
   }
   handleFullName(event){
-    this.setState({ fullName: event.target.value })
+    this.setState({ fullname: event.target.value })
   }
   handleUserName(event){
     this.setState({ userName: event.target.value })
@@ -114,7 +123,7 @@ class SignUpAndLogin extends Component {
                         className="input_with_rounded"
                         type="text"
                         placeholder="Fullname"
-                        value = {this.state.fullName}
+                        value = {this.state.fullname}
                         onChange = {this.handleFullName.bind(this)}
                       />
                       <input
