@@ -11,10 +11,11 @@ class SignUpAndLogin extends Component {
         userName: "",
         loginPassword: "",
         password: "",
-        fullName: "",
+        fullname: "",
         mobileNumber: "",
         goto:false
       }
+    this.updateGoto = this.updateGoto.bind(this)
   }
   handleLogin(){
     let reqBody = {
@@ -22,6 +23,7 @@ class SignUpAndLogin extends Component {
       password: this.state.loginPassword
     }
     axios.post('http://localhost:1996/getCren', reqBody).then( (success) => {
+      console.log('success')
       if(success){
         console.log('success')
         this.updateGoto(true)
@@ -30,21 +32,30 @@ class SignUpAndLogin extends Component {
     .catch( (error) => {
       console.log('error');
     })
-    this.updateGoto(true)
+
   }
   handleSignup(){
     let reqBody = {
       userName: this.state.userName,
       password: this.state.password,
-      fullName: this.state.fullName,
+      fullname: this.state.fullName,
       mobileNumber: this.state.mobileNumber
     }
+    axios.post('http://localhost:1996/signup', reqBody).then( (success) => {
+      if(success){
+        console.log('success')
+        this.updateGoto(true)
+      }
+    })
+    .catch( (error) => {
+      console.log('error');
+    })
   }
   updateGoto(value){
     this.setState({goto: value})
   }
   handleFullName(event){
-    this.setState({ fullName: event.target.value })
+    this.setState({ fullname: event.target.value })
   }
   handleUserName(event){
     this.setState({ userName: event.target.value })
@@ -77,7 +88,6 @@ class SignUpAndLogin extends Component {
 
                 <div className= "body_right_top">
                   <center><h3>Login</h3></center>
-                  <form onSubmit={this.handleLogin.bind(this)} >
                     <div className= "curved_view">
                       <input
                         className="input_with_rounded"
@@ -98,22 +108,21 @@ class SignUpAndLogin extends Component {
                         type="submit"
                         value="Login"
                         className="button_with_rounded"
+                        onClick= {this.handleLogin.bind(this)}
                       >
                       Submit
                     </button>
                     </div>
-                  </form>
                 </div>
                 <h4 style={{textAlign:"center"}}>or</h4>
                 <div className= "body_right_bottom">
                   <center><h3>Signup</h3></center>
-                  <form onSubmit={this.handleSignup.bind(this)} >
                   <div className= "curved_view">
                       <input
                         className="input_with_rounded"
                         type="text"
                         placeholder="Fullname"
-                        value = {this.state.fullName}
+                        value = {this.state.fullname}
                         onChange = {this.handleFullName.bind(this)}
                       />
                       <input
@@ -143,11 +152,11 @@ class SignUpAndLogin extends Component {
                         type="submit"
                         value="Login"
                         className="button_with_rounded"
+                        onClick= {this.handleSignup.bind(this)}
                       >
                       Submit
                     </button>
                     </div>
-                  </form>
                 </div>
 
               </div>
