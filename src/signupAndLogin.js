@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import HomeScreen from './homeScreen'
+import axios from 'axios';
 import './App.css';
 
 class SignUpAndLogin extends Component {
@@ -11,7 +12,8 @@ class SignUpAndLogin extends Component {
         loginPassword: "",
         password: "",
         fullName: "",
-        mobileNumber: ""
+        mobileNumber: "",
+        goto:false
       }
   }
   handleLogin(){
@@ -19,8 +21,16 @@ class SignUpAndLogin extends Component {
       userName: this.state.loginUserName,
       password: this.state.loginPassword
     }
-    console.log("ReqBody --> ",reqBody)
-    alert("Login")
+    axios.post('http://localhost:1996/getCren', reqBody).then( (success) => {
+      if(success){
+        console.log('success')
+      }
+    })
+    .catch( (error) => {
+      console.log('error');
+    })
+
+    this.updateGoto(true)
   }
   handleSignup(){
     let reqBody = {
@@ -29,8 +39,10 @@ class SignUpAndLogin extends Component {
       fullName: this.state.fullName,
       mobileNumber: this.state.mobileNumber
     }
-    console.log("ReqBody --> ",reqBody)
-    alert("Signup")
+    this.updateGoto(true)
+  }
+  updateGoto(value){
+    this.setState({goto: value})
   }
   handleFullName(event){
     this.setState({ fullName: event.target.value })
@@ -50,9 +62,9 @@ class SignUpAndLogin extends Component {
   handleLoginPassword(event){
     this.setState({ loginPassword: event.target.value })
   }
-  render() {
-    return (
-        <div>
+  signupLoginRender(){
+    return(
+      <div>
           <div className= "full_screen">
 
             <div className= "top">
@@ -147,7 +159,18 @@ class SignUpAndLogin extends Component {
 
           </div>
         </div>
-    );
+    )
+  }
+  render() {
+    if(this.state.goto){
+      return(
+        <HomeScreen />
+      )
+    }else{
+      return(
+        this.signupLoginRender()
+      )
+    }
   }
 }
 
