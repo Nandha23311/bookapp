@@ -120,20 +120,53 @@
   width: 100%;
   height: 5%;
   color: white;
-  background-color: #282c34;
   padding-bottom:10px;
 }
 .home_screen_body{
+  height: 85%;
   width: 100%;
-  height: 95%;
-  display: flex;
-  flex-direction: row;
+  background-color: white;
+  padding: 2% 15% ;
+  overflow: auto;
+}
+.home_screen_bottom{
+  height: 15%;
+  width: 100%;
   background-color: white;
 }
 
 .listview{
   border-radius: 12px;
-  background-color: antiquewhite;
+  background-color : chocolate;
   width: 70%;
-  height: 15%;
+  height: 40%;
+  margin-top: 5%;
+}
+.listview_top{
+  width: 100%;
+  height: 10%;
+  color: white;
+  padding-bottom:10px;
+}
+.listview_body{
+  width: 100%;
+  height: 90%;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+}
+.listview_body_left{
+  border-radius: 12px;
+  width: 30%;
+  height: 100%;
+}
+.listview_body_right{
+  width: 70%;
+  height: 100%;
+  background-color : chocolate;
+  border-radius: 12px;
+}
+.listview_body_left_img{
+  width: 70%;
+  height: 100%;
 }

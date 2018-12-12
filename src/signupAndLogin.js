@@ -24,12 +24,12 @@ class SignUpAndLogin extends Component {
     axios.post('http://localhost:1996/getCren', reqBody).then( (success) => {
       if(success){
         console.log('success')
+        this.updateGoto(true)
       }
     })
     .catch( (error) => {
       console.log('error');
     })
-
     this.updateGoto(true)
   }
   handleSignup(){
@@ -39,7 +39,6 @@ class SignUpAndLogin extends Component {
       fullName: this.state.fullName,
       mobileNumber: this.state.mobileNumber
     }
-    this.updateGoto(true)
   }
   updateGoto(value){
     this.setState({goto: value})
