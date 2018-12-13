@@ -1,40 +1,67 @@
 import React, { Component } from 'react'
 import './App.css';
-
+import axios from 'axios';
 class HomeScreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
         userId: "",
-        bookList:[
+        user:{},
+        bookList:[],
+        bookList1:[
             {
                 bookName: "Ponniyin Selvan",
                 authorName: "Kalki",
-                discription: " Ponniyin Selvan Author	Kalki Krishnamurthy Country	India Language	Tamil Genre	Historical, Romance, Espionage, Thriller, Novel Published	1951–1954 (Kalki) Ponniyin Selvan (English: The Son of Kaveri) is a historical novel by Kalki Krishnamurthy, written in Tamil. In five volumes, or about 2400 pages, it tells the story of Arulmozhivarman, who later became the Chola king Rajaraja Chola I). The book took more than three years to write Kalki visited Sri Lanka three times to gather information for it.",
+                description: " Ponniyin Selvan Author	Kalki Krishnamurthy Country	India Language	Tamil Genre	Historical, Romance, Espionage, Thriller, Novel Published	1951–1954 (Kalki) Ponniyin Selvan (English: The Son of Kaveri) is a historical novel by Kalki Krishnamurthy, written in Tamil. In five volumes, or about 2400 pages, it tells the story of Arulmozhivarman, who later became the Chola king Rajaraja Chola I). The book took more than three years to write Kalki visited Sri Lanka three times to gather information for it.",
                 url: "https://n3.sdlcdn.com/imgs/d/n/3/Ponniyin-Selvan-Vol-1-5-SDL892179572-1-81398.jpg"
             },
             {
                 bookName: "Parthiban kanavu",
                 authorName: "Kalki",
-                discription: "In the seventh century the Cholas are vassals of the Pallavas. Parthiban conveys his dream of the Chola dynasty regaining its glory – which he believes is lost since they are no longer the independent rulers – to his young son Vikraman",
+                description: "In the seventh century the Cholas are vassals of the Pallavas. Parthiban conveys his dream of the Chola dynasty regaining its glory – which he believes is lost since they are no longer the independent rulers – to his young son Vikraman",
                 url: "https://images-eu.ssl-images-amazon.com/images/I/61L-m7FSsWL.jpg"
             },
             {
                 bookName: "Ponniyin Selvan",
                 authorName: "Kalki",
-                discription: " Ponniyin Selvan Author	Kalki Krishnamurthy Country	India Language	Tamil Genre	Historical, Romance, Espionage, Thriller, Novel Published	1951–1954 (Kalki) Ponniyin Selvan (English: The Son of Kaveri) is a historical novel by Kalki Krishnamurthy, written in Tamil. In five volumes, or about 2400 pages, it tells the story of Arulmozhivarman, who later became the Chola king Rajaraja Chola I). The book took more than three years to write Kalki visited Sri Lanka three times to gather information for it.",
+                description: " Ponniyin Selvan Author	Kalki Krishnamurthy Country	India Language	Tamil Genre	Historical, Romance, Espionage, Thriller, Novel Published	1951–1954 (Kalki) Ponniyin Selvan (English: The Son of Kaveri) is a historical novel by Kalki Krishnamurthy, written in Tamil. In five volumes, or about 2400 pages, it tells the story of Arulmozhivarman, who later became the Chola king Rajaraja Chola I). The book took more than three years to write Kalki visited Sri Lanka three times to gather information for it.",
                 url: "https://n3.sdlcdn.com/imgs/d/n/3/Ponniyin-Selvan-Vol-1-5-SDL892179572-1-81398.jpg"
             },
             {
                 bookName: "Parthiban kanavu",
                 authorName: "Kalki",
-                discription: "In the seventh century the Cholas are vassals of the Pallavas. Parthiban conveys his dream of the Chola dynasty regaining its glory – which he believes is lost since they are no longer the independent rulers – to his young son Vikraman",
+                description: "In the seventh century the Cholas are vassals of the Pallavas. Parthiban conveys his dream of the Chola dynasty regaining its glory – which he believes is lost since they are no longer the independent rulers – to his young son Vikraman",
                 url: "https://images-eu.ssl-images-amazon.com/images/I/61L-m7FSsWL.jpg"
             }
         ]
       }
   }
+  componentDidMount() {
+    this.updateUser(this.props.user.data)
+    var reqBody = {
+        userId: this.props.user.data._id
+    }
+    axios.post('http://localhost:1996/getsubscribedbook', reqBody).then( (success) => {
+        if(success){
+
+          this.updateBooks(success.data.data)
+
+        }
+      })
+      .catch( (error) => {
+        alert("invalid user")
+        console.log('error');
+      })
+  }
+
+  updateUser(value){
+    this.setState({user: value})
+  }
+  updateBooks(value){
+    this.setState({bookList: value})
+  }
   render() {
+      console.log("this.state.bookList-->",this.state.bookList)
     return (
         <div>
           <div className= "full_screen">
@@ -44,6 +71,7 @@ class HomeScreen extends Component {
             </div>
 
             <div className = "home_screen_body">
+            <text className = "username-text">Hi {this.state.user.userName}, </text>
                 {this.state.bookList.map((eachBook)=>{
                   return(
                     <ListView obj= {eachBook}/>
@@ -73,15 +101,27 @@ class ListView extends Component {
       return (
         <div className = "listview">
             <div className = "listview_top">
-                <center>{this.props.obj.bookName}</center>
+            <center className =" header-text">{this.props.obj.bookName}</center>
             </div>
             <div className = "listview_body">
                 <div className = "listview_body_left">
                     <img className= "listview_body_left_img" src={this.props.obj.url} alt="PONNIYIN SELVAN" ></img>
                 </div>
                 <div className = "listview_body_right">
-                    <text>Title</text>
-                </div>
+                    <div className = "text-key-css">
+                    Title :<text className ="text-value-css"> {this.props.obj.bookName}</text>
+                    </div>
+                    <div className = "text-key-css">
+                    Author Name :<text className ="text-value-css">{this.props.obj.authorName}</text>
+                    </div>
+                    <div className = "text-key-css">
+                    Description :<text className ="text-value-css">{this.props.obj.description}</text>
+                    </div>
+                    <div className ="read-and-subs-row_align">
+                    <button className = "button"><span> Read </span></button>
+                    <button className = "button"><span> Unsubscribe </span></button>
+                    </div>
+            </div>
             </div>
         </div>
       );
