@@ -38,7 +38,7 @@ class SignUpAndLogin extends Component {
     let reqBody = {
       userName: this.state.userName,
       password: this.state.password,
-      fullname: this.state.fullName,
+      fullname: this.state.fullname,
       mobileNumber: this.state.mobileNumber
     }
     axios.post('http://localhost:1996/signup', reqBody).then( (success) => {
