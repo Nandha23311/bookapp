@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import HomeScreen from './homeScreen'
+// import Subscribe from './subscribe'
 import axios from 'axios';
 import './App.css';
+import Subscribe from './subscribe';
 
 class SignUpAndLogin extends Component {
   constructor() {
@@ -13,7 +15,7 @@ class SignUpAndLogin extends Component {
         password: "",
         fullName: "",
         mobileNumber: "",
-        goto:false
+        goto: false
       }
     this.updateGoto = this.updateGoto.bind(this)
   }
@@ -98,7 +100,7 @@ class SignUpAndLogin extends Component {
                       />
                       <input
                         className="input_with_rounded"
-                        type="text"
+                        type="password"
                         placeholder="Password"
                         style={{ marginTop: "5px" }}
                         value = {this.state.loginPassword}
@@ -142,7 +144,7 @@ class SignUpAndLogin extends Component {
                       />
                       <input
                         className="input_with_rounded"
-                        type="text"
+                        type="password"
                         placeholder="Password"
                         style={{ marginTop: "5px" }}
                         value = {this.state.password}
@@ -150,7 +152,7 @@ class SignUpAndLogin extends Component {
                       />
                       <button
                         type="submit"
-                        value="Login"
+                        value="SignUp"
                         className="button_with_rounded"
                         onClick= {this.handleSignup.bind(this)}
                       >
@@ -170,15 +172,17 @@ class SignUpAndLogin extends Component {
     )
   }
   render() {
-    if(this.state.goto){
+    if(this.state.goto === true){
       return(
-        <HomeScreen />
-      )
-    }else{
-      return(
-        this.signupLoginRender()
+        <Subscribe />
       )
     }
+    else{
+      return(
+        <signupLoginRender />
+      )
+  }
+
   }
 }
 

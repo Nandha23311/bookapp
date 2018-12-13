@@ -169,3 +169,59 @@
   width: 70%;
   height: 100%;
 }
+
+.subscribe-top{
+  width: 100%;
+  height: 5%;
+  color: white;
+  padding-bottom:10px;
+}
+.subscribe-body{
+  height: 85%;
+  width: 100%;
+  background-color: white;
+  padding: 2% 15% ;
+  overflow: auto;
+}
+.subscribe-bottom{
+  height: 15%;
+  width: 100%;
+  background-color: white;
+}
+
+.listview{
+  border-radius: 12px;
+  background-color : chocolate;
+  width: 70%;
+  height: 40%;
+  margin-top: 5%;
+}
+.listview-top{
+  width: 100%;
+  height: 10%;
+  color: white;
+  padding-bottom:10px;
+}
+.listview-body{
+  width: 100%;
+  height: 90%;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+}
+.listview-body-left{
+  border-radius: 12px;
+  width: 30%;
+  height: 100%;
+}
+.listview-body-right{
+  width: 70%;
+  height: 100%;
+  background-color : chocolate;
+  border-radius: 12px;
+}
+.listview-body-left-img{
+  width: 70%;
+  height: 100%;
+}
+
