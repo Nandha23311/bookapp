@@ -11,7 +11,7 @@ class SignUpAndLogin extends Component {
         userName: "",
         loginPassword: "",
         password: "",
-        fullname: "",
+        fullName: "",
         mobileNumber: "",
         goto:false
       }

@@ -50,9 +50,11 @@ class HomeScreen extends Component {
                   )
                 })}
             </div>
+
             <div className = "home_screen_bottom">
                 <text>_</text>
             </div>
+
           </div>
         </div>
     );
@@ -75,10 +77,10 @@ class ListView extends Component {
             </div>
             <div className = "listview_body">
                 <div className = "listview_body_left">
-                <img className= "listview_body_left_img" src={this.props.obj.url} alt="PONNIYIN SELVAN" ></img>
+                    <img className= "listview_body_left_img" src={this.props.obj.url} alt="PONNIYIN SELVAN" ></img>
                 </div>
                 <div className = "listview_body_right">
-                <text>Title</text>
+                    <text>Title</text>
                 </div>
             </div>
         </div>
