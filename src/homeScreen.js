@@ -84,7 +84,7 @@ class HomeScreen extends Component {
                 <text className = "username-text">Hi {this.state.user.userName}, </text>
                     {this.state.bookList.map((eachBook)=>{
                       return(
-                        <ListView obj= {eachBook}/>
+                        <ListView obj= {{user: this.state.user, book: eachBook}}/>
                       )
                     })}
                 </div>
@@ -110,6 +110,23 @@ class ListView extends Component {
         }
     }
 
+    handleUnsubscribe(){
+        let data = {
+            _id :this.props.obj.book._id
+        }
+        axios.post('http://localhost:1996/unsubscribe',data).then( ( success) => {
+           if(success){
+               console.log('success');
+           }
+       })
+       .catch( (error) =>{
+            if(error){
+                console.log('error')
+            }
+       })
+
+    }
+
     render() {
       return (
         <div className = "listview">
@@ -132,7 +149,7 @@ class ListView extends Component {
                     </div>
                     <div className ="read-and-subs-row_align">
                         <button className = "button"><span> Read </span></button>
-                        <button className = "button"><span> Unsubscribe </span></button>
+                        <button className = "button" onClick = {this.handleUnsubscribe.bind(this)}><span> Unsubscribe </span></button>
                     </div>
                 </div>
             </div>

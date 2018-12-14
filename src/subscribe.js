@@ -96,7 +96,7 @@ class ListView extends Component{
     handleSubscribe(){
         // console.log(data);
         let data ={
-             bookId : this.props.obj.book._id,
+             _id : this.props.obj.book._id,
              userId : this.props.obj.user._id
         }
        axios.post('http://localhost:1996/subscribe',data).then( ( success) => {
