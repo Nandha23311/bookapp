@@ -26,7 +26,7 @@ class SignUpAndLogin extends Component {
       userName: this.state.loginUserName,
       password: this.state.loginPassword
     }
-    if(this.state.loginUserName.length==0 || this.state.loginPassword.length==0){
+    if(this.state.loginUserName.length === 0 || this.state.loginPassword.length === 0){
       alert("invalid user input")
     }else{
       axios.post('http://localhost:1996/getCren', reqBody).then( (success) => {
@@ -50,7 +50,7 @@ class SignUpAndLogin extends Component {
       fullname: this.state.fullname,
       mobileNumber: this.state.mobileNumber
     }
-    if(this.state.userName.length==0 || this.state.password.length==0 || this.state.mobileNumber.length==0){
+    if(this.state.userName.length === 0 || this.state.password.length === 0 || this.state.mobileNumber.length === 0){
       alert("invalid user input")
     }else{
       axios.post('http://localhost:1996/signup', reqBody).then( (success) => {
@@ -188,16 +188,16 @@ class SignUpAndLogin extends Component {
     )
   }
   render() {
-    if(this.state.goto=="subscribe"){
+    if(this.state.goto === "subscribe"){
       return(
         <Subscribe user = {this.state.user}/>
       )
-    }else if(this.state.goto == "login"){
+    }else if(this.state.goto === "login"){
       //signupLoginRender()
       return(
         this.signupLoginRender()
       )
-    }else if(this.state.goto == "home"){
+    }else if(this.state.goto === "home"){
       return(
         <HomeScreen user = {this.state.user} />
       )
