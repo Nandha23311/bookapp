@@ -28,13 +28,13 @@ class Subscribe extends Component{
                 {
                     bookName : ' Game of Thrones ',
                     authorName : 'George  Martin',
-                    description : ' Sherlock Holmes is a famous fictional detective. Sherlock Holmes is known for his skill at solving hard cases. He has a companion who helps solve the cases, called Dr John Watson. ',
+                    description : ' A Game of Thrones is the first novel in A Song of Ice and Fire, a series of fantasy novels by American author George R. R. Martin. It was first published on August 1, 1996.',
                     url : ' https://images.penguinrandomhouse.com/cover/9781101965870 '
                 },
                 {
                     bookName : ' Game of Thrones ',
                     authorName : 'George  Martin',
-                    description : ' Sherlock Holmes is a famous fictional detective. Sherlock Holmes is known for his skill at solving hard cases. He has a companion who helps solve the cases, called Dr John Watson. ',
+                    description : ' A Game of Thrones is the first novel in A Song of Ice and Fire, a series of fantasy novels by American author George R. R. Martin. It was first published on August 1, 1996. ',
                     url : ' https://images.penguinrandomhouse.com/cover/9781101965870'
                 },
             ]
@@ -94,8 +94,22 @@ class ListView extends Component{
 
     }
     handleSubscribe(){
-        var bookId = this.props.obj.book._id;
-        var userId = this.props.obj.user._id
+        let data ={
+             _id : this.props.obj.book._id,
+             userId : this.props.obj.user._id
+        }
+       axios.post('http://localhost:1996/subscribe',data).then( ( success) => {
+           if(success){
+               console.log('success');
+               this.forceUpdate()
+           }
+       })
+       .catch( (error) =>{
+            if(error){
+                console.log('error')
+            }
+       })
+
     }
 render() {
 

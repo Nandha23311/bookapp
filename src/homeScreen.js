@@ -65,6 +65,7 @@ class HomeScreen extends Component {
   subscribeNewBooks(){
     this.setState({goto: true})
   }
+
   render() {
     console.log("this.state.bookList-->",this.state.bookList)
     if(this.state.goto){
@@ -82,11 +83,13 @@ class HomeScreen extends Component {
                 <button className = "button" onClick ={this.subscribeNewBooks.bind(this)}><span> Subscribe new books </span></button>
                 <div className = "home_screen_body">
                 <text className = "username-text">Hi {this.state.user.userName}, </text>
-                    {this.state.bookList.map((eachBook)=>{
-                      return(
-                        <ListView obj= {eachBook}/>
-                      )
-                    })}
+                    {
+                        this.state.bookList.map((eachBook)=>{
+                            return(
+                                <ListView obj= {eachBook}/>
+                            )
+                        })
+                    }
                 </div>
 
                 <div className = "home_screen_bottom">
