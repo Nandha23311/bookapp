@@ -13,28 +13,35 @@ class SignUpAndLogin extends Component {
         userName: "",
         loginPassword: "",
         password: "",
-        fullname: "",
+        fullName: "",
         mobileNumber: "",
-        goto: false
+        goto: "login",
+        user:{}
       }
     this.updateGoto = this.updateGoto.bind(this)
+    this.updateUser = this.updateUser.bind(this)
   }
   handleLogin(){
     let reqBody = {
       userName: this.state.loginUserName,
       password: this.state.loginPassword
     }
-    axios.post('http://localhost:1996/getCren', reqBody).then( (success) => {
-      console.log('success')
-      if(success){
+    if(this.state.loginUserName.length==0 || this.state.loginPassword.length==0){
+      alert("invalid user input")
+    }else{
+      axios.post('http://localhost:1996/getCren', reqBody).then( (success) => {
         console.log('success')
-        this.updateGoto(true)
-      }
-    })
-    .catch( (error) => {
-      console.log('error');
-    })
-
+        if(success){
+          console.log('success')
+          this.updateUser(success.data)
+          this.updateGoto("home")
+        }
+      })
+      .catch( (error) => {
+        alert("invalid user")
+        console.log('error');
+      })
+    }
   }
   handleSignup(){
     let reqBody = {
@@ -43,18 +50,27 @@ class SignUpAndLogin extends Component {
       fullname: this.state.fullname,
       mobileNumber: this.state.mobileNumber
     }
-    axios.post('http://localhost:1996/signup', reqBody).then( (success) => {
+    if(this.state.userName.length==0 || this.state.password.length==0 || this.state.mobileNumber.length==0){
+      alert("invalid user input")
+    }else{
+      axios.post('http://localhost:1996/signup', reqBody).then( (success) => {
       if(success){
         console.log('success')
-        this.updateGoto(true)
+        this.updateUser(success.data)
+        this.updateGoto("subscribe")
       }
     })
     .catch( (error) => {
+      alert("invalid user input")
       console.log('error');
     })
+    }
   }
   updateGoto(value){
     this.setState({goto: value})
+  }
+  updateUser(value){
+    this.setState({user: value})
   }
   handleFullName(event){
     this.setState({ fullname: event.target.value })
@@ -74,7 +90,7 @@ class SignUpAndLogin extends Component {
   handleLoginPassword(event){
     this.setState({ loginPassword: event.target.value })
   }
-  signupLoginRender(){
+  signupLoginRender=()=>{
     return(
       <div>
           <div className= "full_screen">
@@ -172,16 +188,20 @@ class SignUpAndLogin extends Component {
     )
   }
   render() {
-    if(this.state.goto === true){
+    if(this.state.goto=="subscribe"){
       return(
-        <Subscribe />
+        <Subscribe user = {this.state.user}/>
+      )
+    }else if(this.state.goto == "login"){
+      //signupLoginRender()
+      return(
+        this.signupLoginRender()
+      )
+    }else if(this.state.goto == "home"){
+      return(
+        <HomeScreen user = {this.state.user} />
       )
     }
-    else{
-      return(
-        <signupLoginRender />
-      )
-  }
 
   }
 }
