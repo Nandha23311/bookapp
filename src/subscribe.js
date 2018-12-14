@@ -72,7 +72,7 @@ class Subscribe extends Component{
                     <div className = 'subscribe-body'>
                         {this.state.bookSub.map( (item) =>{
                             return(
-                                <ListView obj = {{user: this.state.user, book: item}}></ListView>
+                                <ListView obj = { {user: this.state.user, book: item} }></ListView>
                             );
                         })}
                     </div>
@@ -94,8 +94,8 @@ class ListView extends Component{
 
     }
     handleSubscribe(){
-        bookId = this.props.obj.book._id;
-        userId = this.props.obj.user._id
+        var bookId = this.props.obj.book._id;
+        var userId = this.props.obj.user._id
     }
 render() {
 

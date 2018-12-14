@@ -16,7 +16,8 @@ class SignUpAndLogin extends Component {
         fullName: "",
         mobileNumber: "",
         goto: "login",
-        user:{}
+        user:{},
+        logo: "https://res.cloudinary.com/ddknctkcj/image/upload/v1544815445/kalki_books.jpg"
       }
     this.updateGoto = this.updateGoto.bind(this)
     this.updateUser = this.updateUser.bind(this)
@@ -100,7 +101,7 @@ class SignUpAndLogin extends Component {
             </div>
             <div className= "body">
               <div className= "body_left">
-                <center><img className= "book_img" src="https://book.ponniyinselvan.in/assets/vikatan_edition.jpg" alt="PONNIYIN SELVAN" ></img></center>
+                <center><img className= "book_img" src={this.state.logo} alt="PONNIYIN SELVAN" ></img></center>
               </div>
               <div className= "body_right">
 
