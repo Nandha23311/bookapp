@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import './App.css';
 import axios from 'axios';
+import Subscribe from './subscribe'
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
         userId: "",
         user:{},
+        goto:false,
         bookList:[],
         bookList1:[
             {
@@ -60,32 +62,42 @@ class HomeScreen extends Component {
   updateBooks(value){
     this.setState({bookList: value})
   }
+  subscribeNewBooks(){
+    this.setState({goto: true})
+  }
   render() {
-      console.log("this.state.bookList-->",this.state.bookList)
-    return (
-        <div>
-          <div className= "full_screen">
+    console.log("this.state.bookList-->",this.state.bookList)
+    if(this.state.goto){
+        return(
+            <Subscribe user = {this.state.user}/>
+        )
+    }else{
+        return (
+            <div>
+              <div className= "full_screen">
 
-            <div className = "home_screen_top">
-                <center><h1> Kalki Books Shop</h1></center>
+                <div className = "home_screen_top">
+                    <center><h1> Kalki Books Shop</h1></center>
+                </div>
+                <button className = "button" onClick ={this.subscribeNewBooks.bind(this)}><span> Subscribe new books </span></button>
+                <div className = "home_screen_body">
+                <text className = "username-text">Hi {this.state.user.userName}, </text>
+                    {this.state.bookList.map((eachBook)=>{
+                      return(
+                        <ListView obj= {eachBook}/>
+                      )
+                    })}
+                </div>
+
+                <div className = "home_screen_bottom">
+                    <text>_</text>
+                </div>
+
+              </div>
             </div>
+        );
+    }
 
-            <div className = "home_screen_body">
-            <text className = "username-text">Hi {this.state.user.userName}, </text>
-                {this.state.bookList.map((eachBook)=>{
-                  return(
-                    <ListView obj= {eachBook}/>
-                  )
-                })}
-            </div>
-
-            <div className = "home_screen_bottom">
-                <text>_</text>
-            </div>
-
-          </div>
-        </div>
-    );
   }
 }
 
@@ -97,11 +109,12 @@ class ListView extends Component {
 
         }
     }
+
     render() {
       return (
         <div className = "listview">
             <div className = "listview_top">
-            <center className =" header-text">{this.props.obj.bookName}</center>
+                <center className =" header-text">{this.props.obj.bookName}</center>
             </div>
             <div className = "listview_body">
                 <div className = "listview_body_left">
@@ -118,10 +131,10 @@ class ListView extends Component {
                     Description :<text className ="text-value-css">{this.props.obj.description}</text>
                     </div>
                     <div className ="read-and-subs-row_align">
-                    <button className = "button"><span> Read </span></button>
-                    <button className = "button"><span> Unsubscribe </span></button>
+                        <button className = "button"><span> Read </span></button>
+                        <button className = "button"><span> Unsubscribe </span></button>
                     </div>
-            </div>
+                </div>
             </div>
         </div>
       );
