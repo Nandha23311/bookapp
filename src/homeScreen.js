@@ -131,21 +131,21 @@ class ListView extends Component {
       return (
         <div className = "listview">
             <div className = "listview_top">
-                <center className =" header-text">{this.props.obj.bookName}</center>
+                <center className =" header-text">{this.props.obj.book.bookName}</center>
             </div>
             <div className = "listview_body">
                 <div className = "listview_body_left">
-                    <img className= "listview_body_left_img" src={this.props.obj.url} alt="PONNIYIN SELVAN" ></img>
+                    <img className= "listview_body_left_img" src={this.props.obj.book.url} alt="PONNIYIN SELVAN" ></img>
                 </div>
                 <div className = "listview_body_right">
                     <div className = "text-key-css">
-                    Title :<text className ="text-value-css"> {this.props.obj.bookName}</text>
+                    Title :<text className ="text-value-css"> {this.props.obj.book.bookName}</text>
                     </div>
                     <div className = "text-key-css">
-                    Author Name :<text className ="text-value-css">{this.props.obj.authorName}</text>
+                    Author Name :<text className ="text-value-css">{this.props.obj.book.authorName}</text>
                     </div>
                     <div className = "text-key-css">
-                    Description :<text className ="text-value-css">{this.props.obj.description}</text>
+                    Description :<text className ="text-value-css">{this.props.obj.book.description}</text>
                     </div>
                     <div className ="read-and-subs-row_align">
                         <button className = "button"><span> Read </span></button>
