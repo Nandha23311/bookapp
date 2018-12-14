@@ -8,7 +8,8 @@ class Subscribe extends Component{
         this.state = {
             subscribe : '',
             userId:'',
-             bookSub :[],
+            user:"",
+            bookSub :[],
             bookSub1 :[
                 {
                     bookName : ' Sherlock Homes ',
@@ -41,7 +42,7 @@ class Subscribe extends Component{
     }
 
     componentDidMount() {
-        this.updateUser(this.props.user.data)
+        this.updateUser(this.props.user)
         axios.get('http://localhost:1996/getbooks',).then( (success) => {
             if(success){
 
@@ -54,7 +55,6 @@ class Subscribe extends Component{
             console.log('error');
           })
       }
-
       updateUser(value){
         this.setState({user: value})
       }
@@ -72,7 +72,7 @@ class Subscribe extends Component{
                     <div className = 'subscribe-body'>
                         {this.state.bookSub.map( (item) =>{
                             return(
-                                <ListView obj = {item}></ListView>
+                                <ListView obj = {{user: this.state.user, book: item}}></ListView>
                             );
                         })}
                     </div>
@@ -89,33 +89,50 @@ class ListView extends Component{
     constructor(){
         super();
         this.state = {
-
+            user: ""
         }
 
     }
+    handleSubscribe(){
+        // console.log(data);
+        let data ={
+             bookId : this.props.obj.book._id,
+             userId : this.props.obj.user._id
+        }
+       axios.post('http://localhost:1996/subscribe',data).then( ( success) => {
+           if(success){
+               console.log('success');
+           }
+       })
+       .catch( (error) =>{
+            if(error){
+                console.log('error')
+            }
+       })
 
+    }
 render() {
 
     return(
         <div className = "listview">
         <div className = "listview_top">
-            <center className =" header-text">{this.props.obj.bookName}</center>
+            <center className =" header-text">{this.props.obj.book.bookName}</center>
         </div>
         <div className = "listview_body">
             <div className = "listview_body_left">
-                <img className= "listview_body_left_img" src={this.props.obj.url} alt="PONNIYIN SELVAN" ></img>
+                <img className= "listview_body_left_img" src={this.props.obj.book.url} alt="PONNIYIN SELVAN" ></img>
             </div>
             <div className = "listview_body_right">
                 <div className = "text-key-css">
-                Title :<text className ="text-value-css"> {this.props.obj.bookName}</text>
+                Title :<text className ="text-value-css"> {this.props.obj.book.bookName}</text>
                 </div>
                 <div className = "text-key-css">
-                Author Name :<text className ="text-value-css">{this.props.obj.authorName}</text>
+                Author Name :<text className ="text-value-css">{this.props.obj.book.authorName}</text>
                 </div>
                 <div className = "text-key-css">
-                Description :<text className ="text-value-css">{this.props.obj.description}</text>
+                Description :<text className ="text-value-css">{this.props.obj.book.description}</text>
                 </div>
-                <button className = "button"><span> Subscribe </span></button>
+                <button className = "button" onClick={this.handleSubscribe.bind(this)}><span> Subscribe </span></button>
             </div>
         </div>
     </div>
